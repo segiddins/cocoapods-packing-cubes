@@ -54,7 +54,7 @@ module CocoaPodsPackingCubes
         host_requires_frameworks? ? :framework : :library
       end.to_sym
       linkage = packing_cube.fetch('linkage') do
-        !host_requires_frameworks? || static_framework? ? :static : :dynamic
+        !host_requires_frameworks? || root_spec.static_framework ? :static : :dynamic
       end.to_sym
 
       @type = ::CocoaPodsPackingCubes::Type.new(linkage: linkage, packaging: packaging)
@@ -68,8 +68,8 @@ module CocoaPodsPackingCubes
       # HACK: needed because CocoaPods, pre-introduction of the `type` type/attr,
       # would check #requires_frameworks? instead of #host_requires_frameworks?
       # for finding the PodTarget to set as a dependency of another PodTarget.
-      if !::CocoaPodsPackingCubes::NATIVE_TYPE_SUPPORT &&
-         caller_locations(1, 2).any? { |l| l.label == '#filter_dependencies' }
+      if !::CocoaPodsPackingCubes::NATIVE_TYPE_SUPPORT && !packing_cube.empty? &&
+         caller_locations(1, 2).any? { |l| l.base_label == 'filter_dependencies' }
 
         return super
       end
