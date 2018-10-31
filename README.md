@@ -1,4 +1,4 @@
-# cocoapods-amicable
+# cocoapods-packing-cubes
 
 A small CocoaPods plugin that allows specifying how individual pods are packaged and linked.
 
