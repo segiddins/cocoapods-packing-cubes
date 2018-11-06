@@ -40,7 +40,9 @@ module CocoaPodsPackingCubes
 
     def initialize(*)
       super
+
       compute_packing_cube_override_type
+      compute_packing_cube_override_defines_module
     end
 
     def packing_cube
@@ -58,6 +60,11 @@ module CocoaPodsPackingCubes
       end.to_sym
 
       @type = ::CocoaPodsPackingCubes::Type.new(linkage: linkage, packaging: packaging)
+    end
+
+    def compute_packing_cube_override_defines_module
+      defines_module = packing_cube.fetch('defines_module')
+      @defines_module = defines_module unless defines_module.nil?
     end
 
     def static_framework?
