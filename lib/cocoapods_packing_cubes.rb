@@ -19,6 +19,19 @@ module CocoaPodsPackingCubes
         end
       end
 
+      attr_reader :linkage, :packaging
+      protected :linkage, :packaging
+
+      def ==(other)
+        linkage == other.linkage &&
+          packaging == other.packaging
+      end
+      alias eql? ==
+
+      def hash
+        linkage.hash ^ packaging.hash
+      end
+
       %i[static dynamic].each_with_index do |linkage, index|
         define_method("#{linkage}?") { linkage == @linkage }
         %i[library framework].each do |packaging|
@@ -48,7 +61,7 @@ module CocoaPodsPackingCubes
     def packing_cube
       @packing_cube ||= podfile.plugins.fetch('cocoapods-packing-cubes', {}).fetch(pod_name, {})
     rescue
-      raise ::Pod::Informative, 'The cocoapods-packing-cubes plugin requires a hash of option.'
+      raise ::Pod::Informative, 'The cocoapods-packing-cubes plugin requires a hash of options.'
     end
 
     def compute_packing_cube_override_type
@@ -63,8 +76,8 @@ module CocoaPodsPackingCubes
     end
 
     def compute_packing_cube_override_defines_module
-      defines_module = packing_cube.fetch('defines_module')
-      @defines_module = defines_module unless defines_module.nil?
+      return unless packing_cube.key?('defines_module')
+      @defines_module = packing_cube['defines_module']
     end
 
     def static_framework?
