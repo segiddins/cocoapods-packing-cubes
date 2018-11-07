@@ -1,4 +1,13 @@
-# CocoaPods Amicable Changelog
+# CocoaPods Packing Cubes Changelog
+
+## Master
+
+##### Enhancements
+
+* Allow overriding `PodTarget#defines_module?` via the
+  `'defines_module'` key.  
+  [Samuel Giddins](https://github.com/segiddins)
+
 
 ## 0.1.1
 
@@ -6,6 +15,7 @@
 
 * Fix running with old versions of CocoaPods.  
   [Samuel Giddins](https://github.com/segiddins)
+
 
 ## 0.1.0
 
