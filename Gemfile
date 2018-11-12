@@ -6,7 +6,8 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'cocoapods'
+  gem 'cocoapods', git: 'https://github.com/CocoaPods/CocoaPods.git'
+  gem 'cocoapods-core', git: 'https://github.com/CocoaPods/Core.git'
 
   gem 'rspec'
   gem 'rubocop', '<=0.50'
