@@ -13,7 +13,8 @@ module CocoaPodsPackingCubes
     def initialize(*)
       super
 
-      return CocoaPodsPackingCubes.warn_for_outdated_cocoapods unless defined?(::Pod::Target::BuildType) && !packing_cube.empty?
+      return if packing_cube.empty?
+      return CocoaPodsPackingCubes.warn_for_outdated_cocoapods unless defined?(::Pod::Target::BuildType)
       compute_packing_cube_override_type
       compute_packing_cube_override_defines_module
     end
@@ -25,8 +26,6 @@ module CocoaPodsPackingCubes
     end
 
     def compute_packing_cube_override_type
-      return if packing_cube.empty?
-
       linkage = packing_cube.fetch('linkage') { build_type.linkage }.to_sym
       packaging = packing_cube.fetch('packaging') { build_type.packaging }.to_sym
 
