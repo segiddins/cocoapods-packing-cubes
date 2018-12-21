@@ -16,3 +16,10 @@ plugin 'cocoapods-packing-cubes',
     'SVGKit' => { 'linkage' => 'dynamic', 'packaging' => 'framework' },
     'JSONKit' => { 'linkage' => 'static', 'packaging' => 'framework' }
 ```
+
+Now run the pod installation.
+
+```
+pod install
+
+```
