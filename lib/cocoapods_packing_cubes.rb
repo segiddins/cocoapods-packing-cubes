@@ -20,7 +20,10 @@ module CocoaPodsPackingCubes
     end
 
     def packing_cube
-      @packing_cube ||= podfile.plugins.fetch('cocoapods-packing-cubes', {}).fetch(pod_name, {})
+      @packing_cube ||= begin
+        packing_cubes_config = podfile.plugins.fetch('cocoapods-packing-cubes', {})
+        packing_cubes_config.fetch(pod_name) { packing_cubes_config.fetch('*', {}) }
+      end
     rescue
       raise ::Pod::Informative, 'The cocoapods-packing-cubes plugin requires a hash of options.'
     end

@@ -4,7 +4,9 @@
 
 ##### Enhancements
 
-* None.  
+* Allow specifying defaults for unspecified pods using the `'*'` key.  
+  [Samuel Giddins](https://github.com/segiddins)
+
 
 ##### Bug Fixes
 
@@ -20,6 +22,7 @@
 ##### Bug Fixes
 
 * Fix warning incorrectly being printed for incompatible CocoaPods.  
+  [Samuel Giddins](https://github.com/segiddins)
 
 
 ## 0.2.0 (2018-11-07)

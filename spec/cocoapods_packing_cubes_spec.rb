@@ -37,6 +37,7 @@ RSpec.describe CocoaPodsPackingCubes do
 
     let(:static_library) { ::Pod::Target::BuildType.static_library }
     let(:static_framework) { ::Pod::Target::BuildType.static_framework }
+    let(:dynamic_library) { ::Pod::Target::BuildType.dynamic_library }
     let(:dynamic_framework) { ::Pod::Target::BuildType.dynamic_framework }
 
     subject(:pod_target) { described_class.new(podfile, pod_name, host_requires_frameworks, root_spec) }
@@ -61,6 +62,21 @@ RSpec.describe CocoaPodsPackingCubes do
 
         it 'is a static framework' do
           expect(pod_target.build_type).to eq static_framework
+        end
+      end
+    end
+
+    context 'when * is specified' do
+      let(:plugin_options) { { '*' => { 'linkage' => :static, 'packaging' => :framework } } }
+
+      it 'uses the default' do
+        expect(pod_target.build_type).to eq static_framework
+      end
+
+      context 'and the per-pod configuration is specified' do
+        let(:plugin_options) { super().merge(pod_name => { 'linkage' => 'dynamic' }) }
+        it 'uses the per-pod configuration' do
+          expect(pod_target.build_type).to eq dynamic_library
         end
       end
     end
