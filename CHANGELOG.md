@@ -1,6 +1,6 @@
 # CocoaPods Packing Cubes Changelog
 
-## Master
+## 0.4.0 (2019-03-08)
 
 ##### Enhancements
 
